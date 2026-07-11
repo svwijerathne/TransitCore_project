@@ -1,0 +1,345 @@
+/* Support Page */
+
+
+/* Hero */
+
+
+.support-hero{
+
+    text-align:center;
+
+    padding:80px 10%;
+
+}
+
+
+
+.support-hero h1{
+
+    font-size:45px;
+    color: aliceblue;
+
+}
+
+
+
+.support-hero p{
+
+    color:#9db0c5;
+
+    margin:20px;
+
+}
+
+
+
+.support-hero input{
+
+
+    width:400px;
+
+    padding:15px;
+
+    border-radius:10px;
+
+    border:none;
+
+    background:#10243f;
+
+    color:white;
+
+
+}
+
+
+
+
+
+/* Support Categories */
+
+
+.support-category{
+
+    padding:70px 8%;
+
+    background:#10243f;
+
+    text-align:center;
+
+}
+
+.support-category h2{
+    color: aliceblue;
+}
+
+
+
+.support-cards{
+
+    display:flex;
+
+    gap:25px;
+
+    margin-top:40px;
+
+}
+
+
+
+.support-card{
+
+
+    flex:1;
+
+    background:#061425;
+
+    padding:30px;
+
+    border-radius:15px;
+
+
+}
+
+
+
+.support-card h3{
+
+    color:#00d9b5;
+
+}
+
+
+
+.support-card p{
+
+    color:#9db0c5;
+
+}
+
+
+
+
+
+
+
+/* FAQ */
+
+
+.faq{
+
+    padding:70px 10%;
+
+}
+
+
+
+.faq h2{
+
+    text-align:center;
+
+    color:azure;
+
+}
+
+
+
+.faq-box{
+
+
+    background:#10243f;
+
+    padding:25px;
+
+    margin:20px 0;
+
+    border-radius:10px;
+
+
+}
+
+
+
+.faq-box h3{
+
+    color:#00d9b5;
+
+}
+
+
+
+.faq-box p{
+
+    color:#9db0c5;
+
+}
+
+
+
+
+
+
+
+/* Contact Form */
+
+
+.contact-support{
+
+
+    padding:70px 10%;
+
+    background:#10243f;
+
+
+}
+
+
+
+.contact-support h2{
+
+    text-align:center;
+
+    margin-bottom:40px;
+
+    color:azure;
+
+}
+
+
+
+.contact-support form{
+
+
+    max-width:500px;
+
+    margin:auto;
+
+
+}
+
+
+
+
+.contact-support label{
+
+
+    display:block;
+
+    margin-top:15px;
+
+    color: azure;
+
+
+}
+
+
+
+.contact-support input,
+.contact-support select,
+.contact-support textarea{
+
+
+    width:100%;
+
+    padding:12px;
+
+    margin-top:8px;
+
+    background:#061425;
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+
+}
+
+
+
+.contact-support textarea{
+
+    height:120px;
+
+}
+
+
+
+.contact-support button{
+
+
+    width:100%;
+
+    margin-top:25px;
+
+
+}
+
+
+/* Navigation Bar */
+
+header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:25px 8%;
+
+    background:#081a32;
+
+}
+
+
+
+/* Logo */
+
+.logo{
+
+    color:#00d9b5;
+
+    font-size:25px;
+
+    font-weight:bold;
+
+}
+
+
+
+/* Navigation Links */
+
+nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+    margin-left:30px;
+
+    font-size:16px;
+
+}
+
+/* Hover Effect */
+
+nav a:hover{
+
+    color:#00d9b5;
+
+}
+
+
+body{
+    background-color: #061425;
+}
+
+footer p{
+    color: azure;
+    text-align: center;
+}
+
+body{
+    font-family: Arial, sans-serif;
+}
