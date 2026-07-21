@@ -210,3 +210,14 @@ USING GIST(pickup_location);
 CREATE INDEX idx_dropoff
 ON ride_requests
 USING GIST(dropoff_location);
+
+ALTER TABLE users ADD COLUMN nic VARCHAR(20) UNIQUE;
+ALTER TABLE users ADD COLUMN gender VARCHAR(20) CHECK (gender IN ('Male', 'Female', 'Other'));
+
+
+ALTER TABLE users ALTER COLUMN nic SET NOT NULL;
+ALTER TABLE users ALTER COLUMN gender SET NOT NULL;
+
+ALTER TABLE vehicles ALTER COLUMN plate_number SET NOT NULL;
+
+select * FROM users ;

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransitCore - Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        
+        .auth-container { 
+            max-width: 520px; 
+            width: 100%;
+            margin: 60px auto; 
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        
+        .form-select-custom {
+            appearance: none; 
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-color: transparent; 
+            color: #e2e8f0;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 12px 16px;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        
+        .form-select-custom:focus {
+            outline: none;
+            border-color: #2dd4bf; 
+            box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.15);
+        }
+
+        
+        .form-select-custom option {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        .conditional-field { display: none; animation: fadeIn 0.3s ease forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav-container">
+        <div class="logo">TransitCore</div>
+        
+        <div style="margin-left: auto;">
+            <a href="main.html" class="btn btn-secondary" style="text-decoration: none;">Home</a>
+        </div>
+    </header>
+
+    <main class="auth-container">
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <span class="badge-pill" style="display: inline-block; margin-bottom: 12px;"><span class="dot"></span> Create account</span>
+            <h2 style="margin-bottom: 8px;">Join TransitCore</h2>
+            
+        </div>
+
+        <form id="registrationForm" action="connect.php?action=register" method="POST" onsubmit="validateForm(event)">
+            
+            <div class="name-row">
+                <div class="input-wrapper">
+                    <input type="text" name="first_name" placeholder="First Name" required>
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" name="last_name" placeholder="Last Name" required>
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="name-row">
+                <div class="input-wrapper">
+                    <input type="text" name="nic" placeholder="NIC Number" required>
+                </div>
+                <div class="input-wrapper">
+                    <input type="tel" name="phone" placeholder="Telephone" required>
+                </div>
+            </div>
+
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">Gender *</label>
+            <select name="gender" id="gender-select" class="form-select-custom" required>
+                <option value="" disabled selected hidden>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <div class="input-wrapper">
+                <input type="password" name="password" placeholder="Account Password" required>
+            </div>
+
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 6px;">I am registering as *</label>
+            <select name="role" id="role-select" class="form-select-custom" onchange="toggleDriverFields()" required>
+                <option value="passenger">Passenger</option>
+                <option value="driver">Driver</option>
+            </select>
+
+            <div id="driver-fields" class="conditional-field">
+                <div class="input-wrapper">
+                    <input type="text" name="license_number" id="license_input" placeholder="Driver License Number (e.g., B1234567)">
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" name="vehicle_number" id="vehicle_number_input" placeholder="Vehicle License Plate (e.g., WP CAP-6822)">
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" name="vehicle_make" id="vehicle_make_input" placeholder="Vehicle Make (e.g., Toyota)">
+                </div>
+                <div class="input-wrapper">
+                    <input type="text" name="vehicle_model" id="vehicle_model_input" placeholder="Vehicle Model (e.g., Prius)">
+                </div>
+                <div class="name-row">
+                    <div class="input-wrapper">
+                        <input type="text" name="vehicle_color" id="vehicle_color_input" placeholder="Vehicle Color">
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="number" name="vehicle_capacity" id="vehicle_capacity_input" placeholder="Seat Capacity" min="1" value="4">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 8px;">
+                Create account
+            </button>
+        </form>
+
+        <div style="margin-top: 20px; text-align: center;">
+            <p class="text-muted" style="font-size: 0.85rem;">Already have an account? <a href="login.php" style="color: var(--accent-teal); text-decoration: none;">Sign in here</a></p>
+        </div>
+    </main>
+
+    <script>
+        function toggleDriverFields() {
+            const roleSelect = document.getElementById('role-select');
+            const driverFields = document.getElementById('driver-fields');
+            const driverInputs = driverFields.querySelectorAll('input');
+
+            if (roleSelect.value === 'driver') {
+                driverFields.style.display = 'block';
+                driverInputs.forEach(input => {
+                    if (!input.name.includes('vehicle_color') && !input.name.includes('vehicle_capacity')) {
+                        input.setAttribute('required', 'required');
+                    }
+                });
+            } else {
+                driverFields.style.display = 'none';
+                driverInputs.forEach(input => {
+                    input.removeAttribute('required');
+                    input.value = '';
+                });
+            }
+        }
+
+        function validateForm(event) {
+            const roleSelect = document.getElementById('role-select').value;
+            
+            if (roleSelect === 'driver') {
+                const licenseInput = document.getElementById('license_input').value.trim();
+                const vehicleInput = document.getElementById('vehicle_number_input').value.trim();
+                const makeInput = document.getElementById('vehicle_make_input').value.trim();
+                const modelInput = document.getElementById('vehicle_model_input').value.trim();
+
+                if (!licenseInput || !vehicleInput || !makeInput || !modelInput) {
+                    event.preventDefault();
+                    alert('Please fill in all driver and vehicle details.');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleDriverFields();
+        });
+    </script>
+</body>
+</html>

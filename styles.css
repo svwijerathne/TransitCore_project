@@ -1,31 +1,45 @@
-/* Styling Tokens System Matrix */
 :root {
-    --bg-dark: #0a0a0a;
-    --bg-card: #141414;
-    --bg-card-hover: #1e1e1e;
-    --text-primary: #ffffff;
-    --text-muted: #8e8e93;
-    --accent-blue: #2f80ed;
-    --border-color: #222222;
-    --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-* {
+    --bg-dark: #080F1E;          
+    --bg-card: #0F172A;          
+    --bg-card-hover: #1E293B;
+    --text-primary: #FFFFFF;
+    --text-muted: #94A3B8;       
+    --accent-teal: #00E5A3;     
+    --border-color: #1E293B;
+    --font-stack: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+}
 
 body {
     background-color: var(--bg-dark);
+   
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
     color: var(--text-primary);
     font-family: var(--font-stack);
+    letter-spacing: -0.01em; 
     line-height: 1.6;
     padding-top: 80px;
     overflow-x: hidden;
 }
 
-/* Base Structural Grid Assemblies */
+
+.btn-primary {
+    background-color: var(--accent-teal);
+    color: #020617;
+    font-weight: 600;
+}
+.btn-primary:hover {
+    background-color: #00CC90;
+    box-shadow: 0 0 20px rgba(0, 229, 163, 0.3);
+}
+
 .section-container {
     max-width: 1200px;
     margin: 0 auto;
@@ -61,24 +75,6 @@ h3 { font-size: 1.5rem; }
     margin-bottom: 48px;
     font-weight: 400;
 }
-
-/* Form Interactivity States */
-.btn {
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-    font-size: 0.9rem;
-}
-
-.btn-primary {
-    background-color: var(--text-primary);
-    color: var(--bg-dark);
-}
-
-.btn-primary:hover { background-color: #e5e5ea; }
 
 .btn-secondary {
     background-color: transparent;
@@ -141,7 +137,109 @@ h3 { font-size: 1.5rem; }
     align-items: center;
     justify-content: center;
 }
+.search-pod {
+    background-color: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 32px;
+    width: 100%;
+    max-width: 480px;
+}
 
+.pod-tabs {
+    display: flex;
+    background-color: rgba(2, 6, 23, 0.4);
+    padding: 4px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+.pod-tab {
+    flex: 1;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    padding: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.pod-tab.active {
+    background-color: #1E293B;
+    color: var(--text-primary);
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.input-wrapper input {
+    width: 100%;
+    background-color: rgba(2, 6, 23, 0.4);
+    border: 1px solid var(--border-color);
+    padding: 14px 16px 14px 44px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: var(--accent-teal);
+}
+
+.btn-block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 14px;
+}
+/* Leaflet Map Visual Adjustments */
+#map {
+    background-color: var(--bg-dark);
+}
+
+/* Custom dark-mode styling for Leaflet controls */
+.leaflet-control-zoom-in, .leaflet-control-zoom-out {
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color) !important;
+}
+
+.leaflet-bar {
+    border: none !important;
+}
+
+/* Dark mode thematic popups matching the screenshots */
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background-color: var(--bg-card) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: var(--font-stack);
+}
+
+.leaflet-popup-content h4 {
+    color: var(--accent-teal);
+    margin-bottom: 4px;
+}
+
+/* Glowing Map Pins for Points (Pickup/Dropoff) */
+.map-marker-glow {
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent-teal);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--accent-teal);
+}
 .placeholder-icon::before {
     content: "✕";
     font-size: 2.5rem;

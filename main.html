@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TransitCore Ledger - P2P Carpooling & MaaS Fintech Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet mapping dependencies -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body>
 
@@ -28,9 +34,31 @@
                 <button class="btn btn-secondary">Learn</button>
             </div>
         </div>
-        <div class="hero-visual">
-            <div class="placeholder-icon"></div>
+        <div class="hero-visual" style="padding: 0; overflow: hidden; position: relative;">
+    <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
+</div>
+    <!-- Interactive Passenger Booking Pod -->
+    <div class="search-pod">
+        <div class="pod-tabs">
+            <button class="pod-tab">Transit</button>
+            <button class="pod-tab active">Carpool</button>
+            <button class="pod-tab">Hybrid</button>
         </div>
+        <form class="pod-form" onsubmit="event.preventDefault();">
+            <div class="input-wrapper">
+                <span class="geo-icon point-pickup"></span>
+                <input type="text" placeholder="From — e.g. Astoria, NY" required>
+            </div>
+            <div class="input-wrapper">
+                <span class="geo-icon point-dropoff"></span>
+                <input type="text" placeholder="To — e.g. Hudson Yards, NY" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+                <span class="search-icon">🔍</span> Find my route
+            </button>
+        </form>
+    </div>
+</div>
     </section>
 
     <section id="features" class="section-container text-center">

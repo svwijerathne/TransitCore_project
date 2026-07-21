@@ -1,24 +1,66 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Fetch FAQs dynamically from backend ledger connection script
-    const faqContainer = document.getElementById('faq-target-container');
-    
-    fetch('connect.php?action=get_faqs')
-        .then(response => {
-            if (!response.ok) throw new Error('Network status connection failure');
-            return response.json();
-        })
-        .then(data => {
-            if (data.error) {
-                faqContainer.innerHTML = `<p style="color: red;">Configuration Error: ${data.error}</p>`;
-                return;
-            }
+    if (document.getElementById('map')) {
+        const map = L.map('map', {
+            zoomControl: true,
+            attributionControl: false
+        }).setView([7.8731, 80.7718], 8);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            maxZoom: 19
+        }).addTo(map);
+
+        let pickupMarker = null;
+        let dropoffMarker = null;
+
+        map.on('click', function(e) {
+            const lat = e.latlng.lat.toFixed(6);
+            const lng = e.latlng.lng.toFixed(6);
             
-            // Clear baseline loader markup text string
+            const wktPoint = `POINT(${lng} ${lat})`;
+            
+            const passFromInput = document.querySelector('input[placeholder*="From"]');
+            const passToInput = document.querySelector('input[placeholder*="To"]');
+            
+            if (passFromInput && passToInput) {
+                if (!passFromInput.value) {
+                    passFromInput.value = `${lat}, ${lng}`;
+                    
+                    pickupMarker = L.marker(e.latlng, {title: "Pickup"}).addTo(map)
+                        .bindPopup("<b>Confirmed Pickup Node</b><br>" + wktPoint).openPopup();
+                        
+                } else if (!passToInput.value) {
+                    passToInput.value = `${lat}, ${lng}`;
+                    
+                    dropoffMarker = L.marker(e.latlng, {title: "Dropoff"}).addTo(map)
+                        .bindPopup("<b>Confirmed Dropoff Node</b><br>" + wktPoint).openPopup();
+                        
+                    console.log(`Geospatial Pair Locked: Origin=${passFromInput.value} Target=${passToInput.value}`);
+                } else {
+                    if (pickupMarker) map.removeLayer(pickupMarker);
+                    if (dropoffMarker) map.removeLayer(dropoffMarker);
+                    pickupMarker = null;
+                    dropoffMarker = null;
+                    passFromInput.value = '';
+                    passToInput.value = '';
+                }
+            }
+        });
+    }
+
+    const faqContainer = document.getElementById('faq-target-container');
+    if (faqContainer) {
+        const mockFaqData = [
+            { q: "How do I create an account?", a: "Visit our registration page and fill in your details as either a driver or passenger." },
+            { q: "What payment methods are accepted?", a: "We accept bank transfers, digital wallets, and online payment systems." },
+            { q: "How is matching calculated?", a: "Our system uses route optimization, time proximity, and safety ratings to match rides." },
+            { q: "Can I cancel a ride?", a: "Yes, you can cancel rides up to 30 minutes before departure with reduced fees." }
+        ];
+
+        try {
             faqContainer.innerHTML = '';
             
-            // Map table payloads cleanly into interactive layout fragments
-            data.forEach(item => {
+            mockFaqData.forEach(item => {
                 const accordionItem = document.createElement('div');
                 accordionItem.className = 'accordion-item';
                 
@@ -34,15 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 faqContainer.appendChild(accordionItem);
             });
             
-            // Initialize event handling triggers immediately after structure injection
             bindAccordionLogic();
-        })
-        .catch(err => {
-            faqContainer.innerHTML = `<p style="color: var(--text-muted);">Failed to pull live ledger configurations. Displaying offline system cache.</p>`;
-            console.error('Fetch operations exception:', err);
-        });
+        } catch (err) {
+            faqContainer.innerHTML = `<p style="color: var(--text-muted);">Failed to load FAQs. Please refresh the page.</p>`;
+            console.error('FAQ loading error:', err);
+        }
+    }
 
-    // Strategy design interactive presentation tab controls
     const liquidationItems = document.querySelectorAll('.liquidation-item');
     liquidationItems.forEach(item => {
         item.addEventListener('click', function() {
@@ -51,7 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Encapsulated binder engine for standard accordions
     function bindAccordionLogic() {
         const headers = document.querySelectorAll('.accordion-header');
         headers.forEach(header => {
@@ -61,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const icon = this.querySelector('.icon');
                 const isActive = item.classList.contains('active');
                 
-                // Collapse all open rows to preserve layout state integrity
                 document.querySelectorAll('.accordion-item').forEach(el => {
                     el.classList.remove('active');
                     const p = el.querySelector('.accordion-panel');
@@ -79,9 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Helper utility to escape strings and defend against XSS vulnerabilities
     function escapeHtml(text) {
-        const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-        return text.replace(/[&<>'"]/g, m => map[m]);
+        const map = { 
+            '&': '&amp;', 
+            '<': '&lt;', 
+            '>': '&gt;', 
+            '"': '&quot;', 
+            "'": '&#039;' 
+        };
+        return String(text || '').replace(/[&<>'"]/g, m => map[m]);
     }
 });
